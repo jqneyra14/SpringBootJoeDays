@@ -1,23 +1,34 @@
 package pe.joedayz.restapis.domains;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.NotNull;
+import java.util.Date;
 import lombok.Data;
+import org.springframework.data.domain.AbstractAggregateRoot;
+import pe.joedayz.restapis.events.TodoCreationEvent;
+import pe.joedayz.restapis.utils.validators.TitleConstraint;
+
 @Data
 @Entity
-//@Table(name = "T_TODOS")
-public class Todo {
+@NamedQuery(name = "Todo.fetchAllDone", query = "SELECT t FROM Todo t WHERE t.done = true")
+@NamedQuery(name="Todo.fetchAllByName", query = "SELECT t FROM Todo t WHERE t.title = ?1")
+public class Todo extends AbstractAggregateRoot<Todo> { //Se agrega para heredar del TodoCreationEvent
+    //Con AbstractAggregateRoot se manejan eventos del dominio
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // IDENTITY, SEQUENCE, TABLE
     private long id;
 
-    @NotNull
+    //@NotNull
+    @TitleConstraint
     private String title;
 
     @JsonIgnore
@@ -42,5 +53,9 @@ public class Todo {
     @ManyToOne
     @JsonProperty("type")
     private TodoType todoType;
+
+    public void afterSave() {
+        registerEvent(new TodoCreationEvent());
+    }
 
 }
