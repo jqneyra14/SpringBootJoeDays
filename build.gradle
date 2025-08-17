@@ -1,0 +1,36 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'pe.joedayz'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// spring-web, spring-webmvc, jackson-databind, tomcat-embed-core
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// spring-data-jpa, hibernate-core, jakarta.persistence-api
+    // spring data trabaja con: data-jpa y validation
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//runtimeOnly 'com.h2database:h2'  // PostgreSQL, MySQL, Oracle, SQL Server
+    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
+	// JUnit 5, AssertJ, Hamcrest, Mockito
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
