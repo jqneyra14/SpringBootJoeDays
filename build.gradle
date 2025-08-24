@@ -21,6 +21,8 @@ dependencies {
 	// spring-data-jpa, hibernate-core, jakarta.persistence-api
     // spring data trabaja con: data-jpa y validation
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    /*Para exponer APIS*/
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 	//runtimeOnly 'com.h2database:h2'  // PostgreSQL, MySQL, Oracle, SQL Server
     runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'

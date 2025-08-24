@@ -20,8 +20,7 @@ import pe.joedayz.restapis.utils.validators.TitleConstraint;
 @Entity
 @NamedQuery(name = "Todo.fetchAllDone", query = "SELECT t FROM Todo t WHERE t.done = true")
 @NamedQuery(name="Todo.fetchAllByName", query = "SELECT t FROM Todo t WHERE t.title = ?1")
-public class Todo extends AbstractAggregateRoot<Todo> { //Se agrega para heredar del TodoCreationEvent
-    //Con AbstractAggregateRoot se manejan eventos del dominio
+public class Todo extends AbstractAggregateRoot<Todo> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) // IDENTITY, SEQUENCE, TABLE
