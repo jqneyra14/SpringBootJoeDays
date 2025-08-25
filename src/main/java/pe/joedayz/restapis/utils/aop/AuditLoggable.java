@@ -1,4 +1,6 @@
 package pe.joedayz.restapis.utils.aop;
 
-public class AuditLoggable {
+public interface AuditLoggable<T> {
+
+    public void auditLog(T t, String eventName);
 }

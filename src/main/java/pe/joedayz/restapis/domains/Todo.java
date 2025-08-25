@@ -26,7 +26,7 @@ public class Todo extends AbstractAggregateRoot<Todo> {
     @GeneratedValue(strategy = GenerationType.AUTO) // IDENTITY, SEQUENCE, TABLE
     private long id;
 
-    //@NotNull
+    @NotNull
     @TitleConstraint
     private String title;
 

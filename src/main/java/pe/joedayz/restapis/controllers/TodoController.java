@@ -2,6 +2,8 @@ package pe.joedayz.restapis.controllers;
 
 import jakarta.validation.Valid;
 import java.util.List;
+
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pe.joedayz.restapis.domains.Todo;
 import pe.joedayz.restapis.services.TodoService;
 import pe.joedayz.restapis.services.TodoTypeService;
+import pe.joedayz.restapis.utils.aop.AuditLoggable;
+import pe.joedayz.restapis.utils.aop.LogMethodDetails;
 
 @RestController
 @RequestMapping("/api/todo")
@@ -34,16 +38,24 @@ public class TodoController {
 
     @PostMapping
     public Todo create(@Valid @RequestBody  Todo todo) {
+        ((AuditLoggable)todoService).auditLog(todo, "INSERT");
         return todoService.create(todo);
     }
 
     @GetMapping("/{id}")
-    public Todo read(@PathVariable("id") Long id) {
-        return todoService.findById(id);
+    @LogMethodDetails
+    public ResponseEntity<Todo> read(@PathVariable("id") Long id) {
+        Todo todo = todoService.findById(id);
+        if(null!=todo){
+            return new ResponseEntity<>(todo, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping
     public Todo update(@RequestBody Todo todo) {
+        ((AuditLoggable)todoService).auditLog(todo, "UPDATE");
         return todoService.update(todo);
     }
 
@@ -58,6 +70,7 @@ public class TodoController {
     }
 
     @GetMapping()
+    @LogMethodDetails
     public List<Todo> findAll(@RequestParam String sort, @RequestParam String order, @RequestParam int pageNumber, @RequestParam int numOfRecords) {
         return todoService.findAll(sort, Sort.Direction.fromString(order), pageNumber, numOfRecords);
     }

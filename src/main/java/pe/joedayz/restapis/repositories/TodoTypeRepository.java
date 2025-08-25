@@ -8,7 +8,7 @@ import pe.joedayz.restapis.domains.Todo;
 import pe.joedayz.restapis.domains.TodoType;
 
 
-@Repository
+
 public interface TodoTypeRepository extends CrudRepository<TodoType, String>, PagingAndSortingRepository<TodoType, String> {
 
 }
