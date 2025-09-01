@@ -28,11 +28,11 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.0.1'
-    // JUnit 5, AssertJ, Hamcrest, Mockito
+    implementation 'com.squareup.okhttp3:okhttp:4.0.1' /*Para pruebas*/
+    // JUnit 5, AssertJ, Hamcrest, Mockito -
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test:3.2.3.RELEASE'
-    testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'/*Para pruebas*/
 }
 
 tasks.named('test') {
