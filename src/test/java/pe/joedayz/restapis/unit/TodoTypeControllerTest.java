@@ -39,7 +39,7 @@ public class TodoTypeControllerTest {
 
         //when-then
         mvc.perform(post("/api/todoType")
-                        .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"code\": \"personal\", \"description\": \"Personal tasks\"}"))
                 .andExpect(status().isOk());
     }

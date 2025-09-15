@@ -43,7 +43,7 @@ public class TodoControllerTest {
 
         //when-then
         mvc.perform(get("/api/todo/1")
-                        .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title", is(todo.getTitle())));
 

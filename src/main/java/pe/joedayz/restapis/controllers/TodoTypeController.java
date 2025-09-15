@@ -24,56 +24,56 @@ import pe.joedayz.restapis.services.TodoTypeService;
 public class TodoTypeController {
 
 
-    private TodoTypeService todoTypeService;
+  private TodoTypeService todoTypeService;
 
 
-    @Autowired
-    public TodoTypeController(TodoTypeService todoTypeService) {
-        this.todoTypeService = todoTypeService;
+  @Autowired
+  public TodoTypeController(TodoTypeService todoTypeService) {
+    this.todoTypeService = todoTypeService;
+  }
+
+  @GetMapping("/hello")  // Solo maneja peticiones GET
+  public String hello() {
+    return "Hello World from Spring Boot !";
+  }
+
+  @PostMapping(consumes={"application/json", "application/xml"},
+      produces = {"application/json", "application/xml"})
+  public TodoType create(@RequestBody @Valid TodoType todoType) {
+    return todoTypeService.create(todoType);
+  }
+
+  @GetMapping(value = "/{code}", produces = {"application/xml", "application/json"})
+  public ResponseEntity<TodoType> read(@PathVariable("code") String code) {
+    TodoType todoType = todoTypeService.findByCode(code);
+    if(null != todoType) {
+      return new ResponseEntity<>(todoType, HttpStatus.OK);
+    }else{
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/hello")  // Solo maneja peticiones GET
-    public String hello() {
-        return "Hello World from Spring Boot !";
-    }
+  }
 
-    @PostMapping(consumes={"application/json", "application/xml"},
-            produces = {"application/json", "application/xml"})
-    public TodoType create(@RequestBody @Valid TodoType todoType) {
-        return todoTypeService.create(todoType);
-    }
+  @PutMapping
+  public TodoType updateTodo(@RequestBody TodoType todoType) {
+    return todoTypeService.update(todoType);
+  }
 
-    @GetMapping(value = "/{code}", produces = {"application/xml"})
-    public ResponseEntity<TodoType> read(@PathVariable("code") String code) {
-        TodoType todoType = todoTypeService.findByCode(code);
-        if(null != todoType) {
-            return new ResponseEntity<>(todoType, HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
+  @DeleteMapping("/{code}")
+  public ResponseEntity delete(@PathVariable("code") String code) {
+    try {
+      todoTypeService.deleteByCode(code);
+      return new ResponseEntity(HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
+  }
 
-    @PutMapping
-    public TodoType updateTodo(@RequestBody TodoType todoType) {
-        return todoTypeService.update(todoType);
-    }
-
-    @DeleteMapping("/{code}")
-    public ResponseEntity delete(@PathVariable("code") String code) {
-        try {
-            todoTypeService.deleteByCode(code);
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @GetMapping()
-    public List<TodoType> finaAll(@RequestParam  String sort, @RequestParam String order,
-                                  @RequestParam int pageNumber, @RequestParam int numOfRecords) {
-        return todoTypeService.findAll(sort, Sort.Direction.fromString(order), pageNumber, numOfRecords);
-    }
+  @GetMapping()
+  public List<TodoType> finaAll(@RequestParam  String sort, @RequestParam String order,
+      @RequestParam int pageNumber, @RequestParam int numOfRecords) {
+    return todoTypeService.findAll(sort, Sort.Direction.fromString(order), pageNumber, numOfRecords);
+  }
 
 
 }

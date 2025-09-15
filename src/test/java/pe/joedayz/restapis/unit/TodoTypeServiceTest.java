@@ -26,7 +26,7 @@ public class TodoTypeServiceTest {
         personal.setCode("PERSONAL");
         personal.setDateCreated(new Date());
         Optional<TodoType> personalOptional = Optional.ofNullable(personal);
-
+        
         //given
         Mockito.when(todoTypeRepository.findById("PERSONAL")).thenReturn(personalOptional);
         //when

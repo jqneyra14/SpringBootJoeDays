@@ -5,13 +5,13 @@ import jakarta.validation.ConstraintValidatorContext;
 
 public class TitleValidator implements ConstraintValidator<TitleConstraint, String> {
 
-    @Override
-    public void initialize(TitleConstraint constraintAnnotation) {
-    }
+  @Override
+  public void initialize(TitleConstraint constraintAnnotation) {
+  }
 
-    @Override
-    public boolean isValid(String nameField, ConstraintValidatorContext context) {
-        return nameField != null && nameField.indexOf(" ") > 1;
-    }
+  @Override
+  public boolean isValid(String nameField, ConstraintValidatorContext context) {
+    return nameField != null && nameField.indexOf(" ") > 1;
+  }
 
 }

@@ -9,8 +9,8 @@ import jakarta.servlet.Filter;
 public class WebConfig {
 
 
-    @Bean
-    public Filter shallowEtagHeaderFilter() {
-        return new ShallowEtagHeaderFilter();
-    }
+  @Bean
+  public Filter shallowEtagHeaderFilter() {
+    return new ShallowEtagHeaderFilter();
+  }
 }

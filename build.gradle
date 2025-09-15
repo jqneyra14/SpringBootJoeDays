@@ -16,23 +16,29 @@ repositories {
 }
 
 dependencies {
-    // spring-web, spring-webmvc, jackson-databind, tomcat-embed-core
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    // spring-data-jpa, hibernate-core, jakarta.persistence-api
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+	// spring-web, spring-webmvc, jackson-databind, tomcat-embed-core
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	// spring-data-jpa, hibernate-core, jakarta.persistence-api
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'com.jayway.jsonpath:json-path:2.7.0'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 
-    runtimeOnly 'com.h2database:h2'  // PostgreSQL, MySQL, Oracle, SQL Server
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.0.1' /*Para pruebas*/
-    // JUnit 5, AssertJ, Hamcrest, Mockito -
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.projectreactor:reactor-test:3.2.3.RELEASE'
-    testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'/*Para pruebas*/
+	//runtimeOnly 'com.h2database:h2'  // PostgreSQL, MySQL, Oracle, SQL Server
+    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
+	implementation 'com.squareup.okhttp3:okhttp:4.0.1'
+	// JUnit 5, Hamcrest, Mockito
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test:3.2.3.RELEASE'
+	testImplementation 'com.squareup.okhttp3:mockwebserver:4.0.1'
+	// AssertJ
+	testImplementation 'org.assertj:assertj-core:3.22.0'
 }
 
 tasks.named('test') {

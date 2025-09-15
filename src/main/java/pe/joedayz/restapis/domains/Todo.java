@@ -22,39 +22,39 @@ import pe.joedayz.restapis.utils.validators.TitleConstraint;
 @NamedQuery(name="Todo.fetchAllByName", query = "SELECT t FROM Todo t WHERE t.title = ?1")
 public class Todo extends AbstractAggregateRoot<Todo> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // IDENTITY, SEQUENCE, TABLE
-    private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO) // IDENTITY, SEQUENCE, TABLE
+  private long id;
 
-    @NotNull
-    @TitleConstraint
-    private String title;
+  @NotNull
+  @TitleConstraint
+  private String title;
 
-    @JsonIgnore
-    private String description;
+  @JsonIgnore
+  private String description;
 
-    private boolean done; //1 = true, 0 = false
+  private boolean done; //1 = true, 0 = false
 
-    @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
-    private Date dateCreated;
+  @NotNull
+  @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+  private Date dateCreated;
 
-    @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
-    private Date dueDate;
+  @NotNull
+  @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+  private Date dueDate;
 
-    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
-    private Date dateDone;
+  @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+  private Date dateDone;
 
-    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
-    private Date lastUpdated;
+  @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
+  private Date lastUpdated;
 
-    @ManyToOne
-    @JsonProperty("type")
-    private TodoType todoType;
+  @ManyToOne
+  @JsonProperty("type")
+  private TodoType todoType;
 
-    public void afterSave() {
-        registerEvent(new TodoCreationEvent());
-    }
+  public void afterSave() {
+    registerEvent(new TodoCreationEvent());
+  }
 
 }

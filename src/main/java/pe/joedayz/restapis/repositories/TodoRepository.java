@@ -12,34 +12,34 @@ import pe.joedayz.restapis.domains.TodoType;
 
 public interface TodoRepository extends CrudRepository<Todo, Long>, PagingAndSortingRepository<Todo, Long> {
 
-    Todo findByTitle(String title);
+  Todo findByTitle(String title);
 
-    Todo findByDateCreatedGreaterThanEqual(Date dateCreated);
+  Todo findByDateCreatedGreaterThanEqual(Date dateCreated);
 
-    Todo findByDoneAndDateDone(Boolean done, Date dateDone);
+  Todo findByDoneAndDateDone(Boolean done, Date dateDone);
 
-    // Spring Data está permitiendo en lugar de findBy: readBy y getBy
+  // Spring Data está permitiendo en lugar de findBy: readBy y getBy
 
-    long countByDueDateLessThan(Date dueDate);
+  long countByDueDateLessThan(Date dueDate);
 
-    long countByDateCreatedGreaterThanAndDueDate(Date dateCreated, Date dueDate);
+  long countByDateCreatedGreaterThanAndDueDate(Date dateCreated, Date dueDate);
 
 
-    void deleteById(long id);
+  void deleteById(long id);
 
-    long deleteByTitleAndDone(String title, Boolean done);
+  long deleteByTitleAndDone(String title, Boolean done);
 
-    @Query("SELECT t FROM Todo t WHERE t.done = true")
-    List<Todo> readAllDone();
+  @Query("SELECT t FROM Todo t WHERE t.done = true")
+  List<Todo> readAllDone();
 
-    @Query("SELECT t FROM Todo t WHERE t.dateCreated >= ?1 AND t.dueDate = ?2")
-    List<Todo> fetchTodos(Date dateCreated, Date dueDate);
+  @Query("SELECT t FROM Todo t WHERE t.dateCreated >= ?1 AND t.dueDate = ?2")
+  List<Todo> fetchTodos(Date dateCreated, Date dueDate);
 
-    //Ahora ya puedo integrar mis Named Queries en Spring Data
+  //Ahora ya puedo integrar mis Named Queries en Spring Data
 
-    List<Todo> fetchAllDone();
+  List<Todo> fetchAllDone();
 
-    List<Todo> fetchAllByName(String title);
+  List<Todo> fetchAllByName(String title);
 
-    List<Todo>  findAllByTodoType(TodoType personal);
+  List<Todo>  findAllByTodoType(TodoType personal);
 }
